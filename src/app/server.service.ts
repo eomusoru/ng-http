@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { Http, Headers, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 
@@ -21,11 +22,22 @@ export class ServerService {
     }
 
     getServers(){
-        return this.http.get('https://udemy-ng-http-9f962.firebaseio.com/data.json')
+        return this.http.get('https://udemy-ng-http-9f962.firebaseio.com/')
         .map((response: Response) => {
             const data = response.json();
+
+            for(let server of data){
+                server.name = 'FETCHED_' + server.name;
+            }
+
             return data;
-        }); 
+        })
+        .catch(
+            (error: Response) => {
+
+                return Observable.throw('Something went wrong');
+            }
+        ); 
         // .map take the data from one observable and pass it to another to another observable 
         // and have a response with a much nicer form instead of the ugly nested value that firebase provide us
     }

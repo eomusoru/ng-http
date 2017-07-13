@@ -44,7 +44,7 @@ export class AppComponent {
     this.serverService.getServers()
     .subscribe( // listen the get servers
       // this observable is not going to return us a Promise, because of the .map method which returns us an array
-      (servers: any[]) => { console.log(servers)},
+      (servers: any[]) => this.servers = servers,
       (error) => console.log(error)
     )
   }
