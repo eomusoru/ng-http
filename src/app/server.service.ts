@@ -22,7 +22,7 @@ export class ServerService {
     }
 
     getServers(){
-        return this.http.get('https://udemy-ng-http-9f962.firebaseio.com/')
+        return this.http.get('https://udemy-ng-http-9f962.firebaseio.com/data.json')
         .map((response: Response) => {
             const data = response.json();
 
@@ -40,5 +40,14 @@ export class ServerService {
         ); 
         // .map take the data from one observable and pass it to another to another observable 
         // and have a response with a much nicer form instead of the ugly nested value that firebase provide us
+    }
+
+    getAppName(){
+        return this.http.get('https://udemy-ng-http-9f962.firebaseio.com/data/appName.json')
+        .map(
+            (response: Response) => {
+                return response.json();
+            }
+        );
     }
 }
